@@ -30,9 +30,7 @@ const App = () => {
     return (
         <AppProvider i18n={enTranslations}>
             <Provider config={ appBridgeConfig }>
-                <Page>
-                    <SliderRange />
-                </Page>
+                <SliderRange />
             </Provider>
         </AppProvider>
     );
