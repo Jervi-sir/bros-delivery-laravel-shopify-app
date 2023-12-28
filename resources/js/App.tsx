@@ -15,7 +15,8 @@ const App = () => {
         return {
             host,
             apiKey: import.meta.env.VITE_SHOPIFY_API_KEY,
-            forceRedirect: true
+            forceRedirect: true,
+            scopes: ['read_products,write_products,read_orders,write_orders'],
         }
     })
 
