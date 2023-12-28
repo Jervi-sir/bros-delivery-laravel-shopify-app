@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['verify.shopify'])->group(function() {
+    Route::view('/', 'app')->name('home');
+    Route::post('/products', fn() => response()->noContent());
 });
