@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Osiset\ShopifyApp\Contracts\ShopModel as IShopModel;
 use Osiset\ShopifyApp\Traits\ShopModel;
+use Spatie\LaravelIgnition\Support\Composer\FakeComposer;
 
 class User extends Authenticatable implements IShopModel
 {
@@ -50,5 +51,10 @@ class User extends Authenticatable implements IShopModel
     public function fakeProducts(): HasMany
     {
         return $this->hasMany(FakeProduct::class);
+    }
+
+    public function fakeCustomers(): HasMany
+    {
+        return $this->hasMany(FakeComposer::class);
     }
 }

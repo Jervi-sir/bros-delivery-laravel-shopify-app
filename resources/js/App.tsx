@@ -3,7 +3,7 @@ import { Provider } from '@shopify/app-bridge-react';
 import { AppProvider, Page } from "@shopify/polaris";
 import enTranslations from '@shopify/polaris/locales/en.json'
 import MissingApiKey from "./components/MissingApiKey";
-import SliderRange from "./components/SliderRange";
+import FakeDataCreator from "./components/FakeDataCreator";
 import useAxios from "./hooks/axios";
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
     return (
         <AppProvider i18n={enTranslations}>
             <Provider config={ appBridgeConfig }>
-                <SliderRange />
+                <FakeDataCreator />
             </Provider>
         </AppProvider>
     );
