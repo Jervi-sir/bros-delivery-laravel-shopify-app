@@ -6,41 +6,34 @@ import {
     useBreakpoints,
     Button
 } from '@shopify/polaris';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const OrdersTable = ({ orders }) => {
-    const orderSamples = [
-        {
-            id: '1020',
-            order: '#1020',
-            date: 'Jul 20 at 4:34pm',
-            customer: 'Jaydon Stanton',
-            total: '$969.44',
-            paymentStatus: <Badge progress="complete">Paid</Badge>,
-            fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-            items: <Button onClick={() => console.log(3243)}>Click</Button>
-        },
-        {
-            id: '1019',
-            order: '#1019',
-            date: 'Jul 20 at 3:46pm',
-            customer: 'Ruben Westerfelt',
-            total: '$701.19',
-            paymentStatus: <Badge progress="partiallyComplete">Partially paid</Badge>,
-            fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-            items: <Button>Click</Button>
-        },
-        {
-            id: '1018',
-            order: '#1018',
-            date: 'Jul 20 at 3.44pm',
-            customer: 'Leo Carder',
-            total: '$798.24',
-            paymentStatus: <Badge progress="complete">Paid</Badge>,
-            fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-            items: <Button>Click</Button>
-        },
-    ];
+    const [orderSamples, setOrderSamples] = useState([]);
+    const structureOrders = (laravelData) => {
+        return laravelData.map(order => ({
+            id: order.id,
+            order: `#${order.order}`,
+
+            customer: `${order.customer.name}`,
+            phone: `${order.customer.phone}`,
+
+            item_title: `${order.item.title}`,
+            item_price: `${order.item.price}`,
+            delivery_price: `${order.subtotal_price} DA`,
+            total: `${order.total_price} DA`,
+            delivery_method: `${order.delivery_method}`,
+
+            shipping_address: `${order.shipping_address.address1} - ${order.shipping_address.address2}`,
+            wilaya:  `${order.shipping_address.wilaya}`,
+            zip: `${order.shipping_address.zip}`,
+        }));
+    };
+
+    useEffect(() => {
+        console.log(orders)
+        setOrderSamples(structureOrders(orders));
+    }, []);
 
     const resourceName = {
         singular: 'order',
@@ -52,7 +45,7 @@ const OrdersTable = ({ orders }) => {
 
     const rowMarkup = orderSamples.map(
         (
-            { id, order, date, customer, total, paymentStatus, fulfillmentStatus, items },
+            { id, order, customer, phone, item_title, item_price, delivery_price, total, delivery_method, shipping_address, wilaya, zip },
             index,
         ) => (
             <IndexTable.Row
@@ -66,16 +59,20 @@ const OrdersTable = ({ orders }) => {
                         {order}
                     </Text>
                 </IndexTable.Cell>
-                <IndexTable.Cell>{date}</IndexTable.Cell>
                 <IndexTable.Cell>{customer}</IndexTable.Cell>
+                <IndexTable.Cell>{phone}</IndexTable.Cell>
                 <IndexTable.Cell>
-                    <Text as="span" alignment="end" numeric>
-                        {total}
+                    <Text as="span" alignment="start" numeric>
+                        {item_title}
                     </Text>
                 </IndexTable.Cell>
-                <IndexTable.Cell>{paymentStatus}</IndexTable.Cell>
-                <IndexTable.Cell>{fulfillmentStatus}</IndexTable.Cell>
-                <IndexTable.Cell>{items}</IndexTable.Cell>
+                <IndexTable.Cell>{item_price}</IndexTable.Cell>
+                <IndexTable.Cell>{delivery_price}</IndexTable.Cell>
+                <IndexTable.Cell>{total}</IndexTable.Cell>
+                <IndexTable.Cell>{delivery_method}</IndexTable.Cell>
+                <IndexTable.Cell>{shipping_address}</IndexTable.Cell>
+                <IndexTable.Cell><Badge tone="info-strong">{wilaya}</Badge></IndexTable.Cell>
+                <IndexTable.Cell>{zip}</IndexTable.Cell>
             </IndexTable.Row>
         ),
     );
@@ -92,15 +89,16 @@ const OrdersTable = ({ orders }) => {
             onSelectionChange={handleSelectionChange}
             headings={[
               {title: 'Order'},
-              {title: 'Date'},
               {title: 'Customer'},
-              {title: 'Total', alignment: 'end'},
-              {title: 'Payment status'},
-              {title: 'Fulfillment status'},
-              {title: 'Items'},
+              {title: 'Phone'},
+              {title: 'Item', alignment: 'start'},
+              {title: 'Delivery Price'},
+              {title: 'Price'},
+              {title: 'Total Price'},
               {title: 'Delivery method'},
-              {title: 'Tags'},
-              {title: 'Destination'},
+              {title: 'Address'},
+              {title: 'Wilaya'},
+              {title: 'Zip Code'},
             ]}
           >
             {rowMarkup}

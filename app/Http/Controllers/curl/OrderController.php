@@ -19,11 +19,11 @@ class OrderController extends Controller
 
     public function getOrders()
     {
-        $orders = $this->shopify->getOrders();
-        //dd($orders);
+        $results = $this->shopify->getOrders();
         // Do something with $orders
+
         return Inertia::render('Order/List',[
-            'orders' => $orders
+            'orders' => $results
         ]);
     }
 
