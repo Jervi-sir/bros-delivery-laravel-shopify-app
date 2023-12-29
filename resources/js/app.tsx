@@ -1,10 +1,11 @@
 import '../css/app.css';
+import '@shopify/polaris/build/esm/styles.css'
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Shopify Dash';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

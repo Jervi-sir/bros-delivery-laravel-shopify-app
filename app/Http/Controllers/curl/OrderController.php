@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\ShopifyService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
@@ -19,8 +20,11 @@ class OrderController extends Controller
     public function getOrders()
     {
         $orders = $this->shopify->getOrders();
+        //dd($orders);
         // Do something with $orders
-        return response()->json($orders);
+        return Inertia::render('Order/List',[
+            'orders' => $orders
+        ]);
     }
 
 }
