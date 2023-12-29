@@ -4,16 +4,23 @@ import {
     Text,
     Badge,
     useBreakpoints,
-    Button
+    Button,
+    FormLayout,
+    Select,
+    Grid
 } from '@shopify/polaris';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import PopupDelivery from './PopupDelivery';
 
 const OrdersTable = ({ orders }) => {
     const [orderSamples, setOrderSamples] = useState([]);
+
+
     const structureOrders = (laravelData) => {
         return laravelData.map(order => ({
             id: order.id,
             order: `#${order.order}`,
+            is_delivered: order.fulfillment_status ? <Badge progress="complete" tone="success">Yes</Badge> : <Badge progress="incomplete">No</Badge>,
 
             customer: `${order.customer.name}`,
             phone: `${order.customer.phone}`,
@@ -25,13 +32,13 @@ const OrdersTable = ({ orders }) => {
             delivery_method: `${order.delivery_method}`,
 
             shipping_address: `${order.shipping_address.address1} - ${order.shipping_address.address2}`,
-            wilaya:  `${order.shipping_address.wilaya}`,
+            wilaya: `${order.shipping_address.wilaya}`,
             zip: `${order.shipping_address.zip}`,
+            all: `${order}`,
         }));
     };
 
     useEffect(() => {
-        console.log(orders)
         setOrderSamples(structureOrders(orders));
     }, []);
 
@@ -43,9 +50,20 @@ const OrdersTable = ({ orders }) => {
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(orderSamples);
 
+    // Function to get the selected orders
+    const getSelectedOrders = () => {
+        return orderSamples.filter(order => selectedResources.includes(order.id));
+    }
+
+    const handleShowSelected = () => {
+        const selectedOrders = getSelectedOrders();
+        console.log("Selected Orders:", selectedOrders);
+        // Perform further actions with selectedOrders if needed
+    };
+
     const rowMarkup = orderSamples.map(
         (
-            { id, order, customer, phone, item_title, item_price, delivery_price, total, delivery_method, shipping_address, wilaya, zip },
+            { id, order, is_delivered, customer, phone, item_title, item_price, delivery_price, total, delivery_method, shipping_address, wilaya, zip },
             index,
         ) => (
             <IndexTable.Row
@@ -59,6 +77,7 @@ const OrdersTable = ({ orders }) => {
                         {order}
                     </Text>
                 </IndexTable.Cell>
+                <IndexTable.Cell>{is_delivered}</IndexTable.Cell>
                 <IndexTable.Cell>{customer}</IndexTable.Cell>
                 <IndexTable.Cell>{phone}</IndexTable.Cell>
                 <IndexTable.Cell>
@@ -77,33 +96,54 @@ const OrdersTable = ({ orders }) => {
         ),
     );
 
+    const [selectedDelivery, setSelectedDelivery] = useState({label: 'ZR Express', value: 'zr_express'});
+    const handleSelectChange = useCallback(
+        (value: string, label: string) => setSelectedDelivery({value: value, label: label}),
+        [],
+    );
+    const deliveryOptions = [
+        {label: 'ZR Express', value: 'zr_express'},
+    ];
 
     return (
-          <IndexTable
-            condensed={useBreakpoints().smDown}
-            resourceName={resourceName}
-            itemCount={orderSamples.length}
-            selectedItemsCount={
-              allResourcesSelected ? 'All' : selectedResources.length
-            }
-            onSelectionChange={handleSelectionChange}
-            headings={[
-              {title: 'Order'},
-              {title: 'Customer'},
-              {title: 'Phone'},
-              {title: 'Item', alignment: 'start'},
-              {title: 'Delivery Price'},
-              {title: 'Price'},
-              {title: 'Total Price'},
-              {title: 'Delivery method'},
-              {title: 'Address'},
-              {title: 'Wilaya'},
-              {title: 'Zip Code'},
-            ]}
-          >
-            {rowMarkup}
-          </IndexTable>
-      );
+        <FormLayout>
+            <Grid>
+            <Select
+                label="Sort by"
+                labelInline
+                options={deliveryOptions}
+                onChange={handleSelectChange}
+                value={selectedDelivery.value}
+            />
+                <PopupDelivery orders={getSelectedOrders()} delivery_method={selectedDelivery} />
+            </Grid>
+            <IndexTable
+                condensed={useBreakpoints().smDown}
+                resourceName={resourceName}
+                itemCount={orderSamples.length}
+                selectedItemsCount={
+                    allResourcesSelected ? 'All' : selectedResources.length
+                }
+                onSelectionChange={handleSelectionChange}
+                headings={[
+                    { title: 'Order' },
+                    { title: 'Delivered ?' },
+                    { title: 'Customer' },
+                    { title: 'Phone' },
+                    { title: 'Item', alignment: 'start' },
+                    { title: 'Delivery Price' },
+                    { title: 'Price' },
+                    { title: 'Total Price' },
+                    { title: 'Delivery method' },
+                    { title: 'Address' },
+                    { title: 'Wilaya' },
+                    { title: 'Zip Code' },
+                ]}
+            >
+                {rowMarkup}
+            </IndexTable>
+        </FormLayout>
+    );
 
 }
 

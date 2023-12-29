@@ -35,7 +35,7 @@ class ShopifyService extends ServiceProvider
          *  name, email, financial_status, fulfillment_status, currency, subtotal_price, shipping_lines(price, code), tax_lines(price), total_price, created_at, line_items(title, quantity, id, price, name)
         */
         $fields = '
-            browser_ip, order_number, email, currency, created_at,
+            browser_ip, order_number, email, currency, created_at, fulfillment_status,
             subtotal_price, total_price, financial_status,
             line_items,shipping_address, payment_gateway_names
         ';
@@ -56,6 +56,7 @@ class ShopifyService extends ServiceProvider
                 'id'    => $order['order_number']   ?? 'Unknown ID',
                 'order' => ($order['order_number']  ?? 'Unknown Order Number'),
                 'created_at' => ($order['created_at']  ?? 'Unknown Created_at'),
+                'fulfillment_status' => isset($order['line_items']) ? $order['line_items'][0]['fulfillment_status']  : 'Unknown status',
 
                 'paymentStatus'     => $order['financial_status']   ?? 'Unknown Status',
                 'currency'          => $order['currency']           ?? 'Unknown Currency',

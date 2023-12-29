@@ -42,6 +42,7 @@ Route::get('/', function () {
 });
 
 Route::get('/orders', [OrderController::class, 'getOrders']);
+Route::post('/fetch-deliveries', [OrderController::class, 'postDeliveries']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
