@@ -5,6 +5,7 @@ namespace App\Http\Controllers\curl;
 use App\Http\Controllers\Controller;
 use App\Providers\ShopifyService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
@@ -15,12 +16,11 @@ class OrderController extends Controller
         $this->shopify = $shopify;
     }
 
-    public function index()
+    public function getOrders()
     {
         $orders = $this->shopify->getOrders();
-        dd($orders);
         // Do something with $orders
-        return view('orders.index', compact('orders'));
+        return response()->json($orders);
     }
 
 }

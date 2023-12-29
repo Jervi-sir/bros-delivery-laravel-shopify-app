@@ -1,0 +1,339 @@
+0: [
+      "id" => 5264488988719
+      "admin_graphql_api_id" => "gid://shopify/Order/5264488988719"
+      "app_id" => 1354745
+      "browser_ip" => "41.97.186.159"
+      "buyer_accepts_marketing" => false
+      "cancel_reason" => null
+      "cancelled_at" => null
+      "cart_token" => null
+      "checkout_id" => 39483960197167
+      "checkout_token" => "b082cb3b61014a436913dfd064954c86"
+      "client_details" => array:6 [▼
+        "accept_language" => null
+        "browser_height" => null
+        "browser_ip" => "41.97.186.159"
+        "browser_width" => null
+        "session_hash" => null
+        "user_agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"
+      ]
+      "closed_at" => null
+      "company" => null
+      "confirmation_number" => "YXHAFDNT5"
+      "confirmed" => true
+      "contact_email" => "ayumu.hirano@example.com"
+      "created_at" => "2023-12-29T12:28:09-05:00"
+      "currency" => "EUR"
+      "current_subtotal_price" => "2629.95"
+      "current_subtotal_price_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "current_total_additional_fees_set" => null
+      "current_total_discounts" => "0.00"
+      "current_total_discounts_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "current_total_duties_set" => null
+      "current_total_price" => "2629.95"
+      "current_total_price_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "current_total_tax" => "0.00"
+      "current_total_tax_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "customer_locale" => "en"
+      "device_id" => null
+      "discount_codes" => []
+      "email" => "ayumu.hirano@example.com"
+      "estimated_taxes" => false
+      "financial_status" => "pending"
+      "fulfillment_status" => null
+      "landing_site" => null
+      "landing_site_ref" => null
+      "location_id" => null
+      "merchant_of_record_app_id" => null
+      "name" => "#1003"
+      "note" => "Note"
+      "note_attributes" => []
+      "number" => 3
+      "order_number" => 1003
+      "order_status_url" => "https://quickstart-7953edcc.myshopify.com/59686813743/orders/a79e19455d297cec0c512a4fae92cb8d/authenticate?key=cb4fb361d865714095ac4fff86c8eb75"
+      "original_total_additional_fees_set" => null
+      "original_total_duties_set" => null
+      "payment_gateway_names" => array:1 [▼
+        0 => "manual"
+      ]
+      "phone" => "+213558054300"
+      "po_number" => null
+      "presentment_currency" => "EUR"
+      "processed_at" => "2023-12-29T12:28:08-05:00"
+      "reference" => "5036d19edf73f4dc442a6b60d1bb092f"
+      "referring_site" => null
+      "source_identifier" => "5036d19edf73f4dc442a6b60d1bb092f"
+      "source_name" => "shopify_draft_order"
+      "source_url" => null
+      "subtotal_price" => "2629.95"
+      "subtotal_price_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "tags" => "Line Item Discount, Shipping Discount"
+      "tax_exempt" => false
+      "tax_lines" => []
+      "taxes_included" => true
+      "test" => false
+      "token" => "a79e19455d297cec0c512a4fae92cb8d"
+      "total_discounts" => "0.00"
+      "total_discounts_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "total_line_items_price" => "2629.95"
+      "total_line_items_price_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "total_outstanding" => "2629.95"
+      "total_price" => "2629.95"
+      "total_price_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "2629.95"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "total_shipping_price_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "total_tax" => "0.00"
+      "total_tax_set" => array:2 [▼
+        "shop_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+        "presentment_money" => array:2 [▼
+          "amount" => "0.00"
+          "currency_code" => "EUR"
+        ]
+      ]
+      "total_tip_received" => "0.00"
+      "total_weight" => 0
+      "updated_at" => "2023-12-29T12:28:10-05:00"
+      "user_id" => 81642881071
+      "billing_address" => array:15 [▼
+        "first_name" => "Jervi"
+        "address1" => "Ain Temouchent"
+        "phone" => "+213 558 05 43 00"
+        "city" => "Ain Temouchent"
+        "zip" => "46011"
+        "province" => null
+        "country" => "Algeria"
+        "last_name" => "Sir"
+        "address2" => "Chaabat El Lehamm"
+        "company" => "AIn Temouchent"
+        "latitude" => null
+        "longitude" => null
+        "name" => "Jervi Sir"
+        "country_code" => "DZ"
+        "province_code" => null
+      ]
+      "customer" => array:22 [▼
+        "id" => 6632099086383
+        "email" => "ayumu.hirano@example.com"
+        "accepts_marketing" => false
+        "created_at" => "2023-12-17T12:59:37-05:00"
+        "updated_at" => "2023-12-29T12:28:09-05:00"
+        "first_name" => "Ayumu"
+        "last_name" => "Hirano"
+        "state" => "disabled"
+        "note" => null
+        "verified_email" => true
+        "multipass_identifier" => null
+        "tax_exempt" => false
+        "phone" => "+213558054300"
+        "email_marketing_consent" => array:3 [▼
+          "state" => "not_subscribed"
+          "opt_in_level" => "single_opt_in"
+          "consent_updated_at" => null
+        ]
+        "sms_marketing_consent" => array:4 [▼
+          "state" => "not_subscribed"
+          "opt_in_level" => "single_opt_in"
+          "consent_updated_at" => null
+          "consent_collected_from" => "SHOPIFY"
+        ]
+        "tags" => ""
+        "currency" => "EUR"
+        "accepts_marketing_updated_at" => "2023-12-17T12:59:37-05:00"
+        "marketing_opt_in_level" => null
+        "tax_exemptions" => []
+        "admin_graphql_api_id" => "gid://shopify/Customer/6632099086383"
+        "default_address" => array:17 [▼
+          "id" => 7912435843119
+          "customer_id" => 6632099086383
+          "first_name" => "Jervi"
+          "last_name" => "Sir"
+          "company" => "Ain Temouchent"
+          "address1" => "Ain Temouchent"
+          "address2" => "Chaabat el Lehamm"
+          "city" => "Ain Temouchent"
+          "province" => null
+          "country" => "Algeria"
+          "zip" => "46011"
+          "phone" => "+213 558 05 43 00"
+          "name" => "Jervi Sir"
+          "province_code" => null
+          "country_code" => "DZ"
+          "country_name" => "Algeria"
+          "default" => true
+        ]
+      ]
+      "discount_applications" => []
+      "fulfillments" => []
+      "line_items" => array:1 [▼
+        0 => array:28 [▼
+          "id" => 12938240950319
+          "admin_graphql_api_id" => "gid://shopify/LineItem/12938240950319"
+          "attributed_staffs" => []
+          "fulfillable_quantity" => 1
+          "fulfillment_service" => "snow-city-warehouse"
+          "fulfillment_status" => null
+          "gift_card" => false
+          "grams" => 0
+          "name" => "The 3p Fulfilled Snowboard"
+          "price" => "2629.95"
+          "price_set" => array:2 [▼
+            "shop_money" => array:2 [▼
+              "amount" => "2629.95"
+              "currency_code" => "EUR"
+            ]
+            "presentment_money" => array:2 [▼
+              "amount" => "2629.95"
+              "currency_code" => "EUR"
+            ]
+          ]
+          "product_exists" => true
+          "product_id" => 7384838078511
+          "properties" => []
+          "quantity" => 1
+          "requires_shipping" => true
+          "sku" => "sku-hosted-1"
+          "taxable" => true
+          "title" => "The 3p Fulfilled Snowboard"
+          "total_discount" => "0.00"
+          "total_discount_set" => array:2 [▼
+            "shop_money" => array:2 [▼
+              "amount" => "0.00"
+              "currency_code" => "EUR"
+            ]
+            "presentment_money" => array:2 [▼
+              "amount" => "0.00"
+              "currency_code" => "EUR"
+            ]
+          ]
+          "variant_id" => 41953173897263
+          "variant_inventory_management" => "shopify"
+          "variant_title" => null
+          "vendor" => "Quickstart (7953edcc)"
+          "tax_lines" => []
+          "duties" => []
+          "discount_allocations" => []
+        ]
+      ]
+      "payment_terms" => array:7 [▼
+        "id" => 4560846895
+        "created_at" => "2023-12-29T12:28:09-05:00"
+        "due_in_days" => null
+        "payment_schedules" => array:1 [▼
+          0 => array:8 [▼
+            "id" => 5316444207
+            "amount" => "2629.95"
+            "currency" => "EUR"
+            "issued_at" => null
+            "due_at" => null
+            "completed_at" => null
+            "created_at" => "2023-12-29T12:28:09-05:00"
+            "updated_at" => "2023-12-29T12:28:09-05:00"
+          ]
+        ]
+        "payment_terms_name" => "Due on fulfillment"
+        "payment_terms_type" => "fulfillment"
+        "updated_at" => "2023-12-29T12:28:09-05:00"
+      ]
+      "refunds" => []
+      "shipping_address" => array:15 [▼
+        "first_name" => "Jervi"
+        "address1" => "Ain Temouchent"
+        "phone" => "+213 558 05 43 00"
+        "city" => "Ain Temouchent"
+        "zip" => "46011"
+        "province" => null
+        "country" => "Algeria"
+        "last_name" => "Sir"
+        "address2" => "Chaabat el Lehamm"
+        "company" => "Ain Temouchent"
+        "latitude" => null
+        "longitude" => null
+        "name" => "Jervi Sir"
+        "country_code" => "DZ"
+        "province_code" => null
+      ]
+      "shipping_lines" => []
+    ]

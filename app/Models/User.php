@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 use Osiset\ShopifyApp\Contracts\ShopModel as IShopModel;
 use Osiset\ShopifyApp\Traits\ShopModel;
@@ -15,7 +14,7 @@ use Spatie\LaravelIgnition\Support\Composer\FakeComposer;
 
 class User extends Authenticatable implements IShopModel
 {
-    use HasApiTokens, HasFactory, Notifiable, ShopModel;
+    use HasFactory, Notifiable, ShopModel;
 
     /**
      * The attributes that are mass assignable.

@@ -1,20 +1,13 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import react from '@vitejs/plugin-react'
-import dotenv from 'dotenv';
-dotenv.config();
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: `resources/js/${process.env.VITE_APP_TYPE}/index.tsx`,
+            input: 'resources/js/app.tsx',
             refresh: true,
         }),
-        react()
+        react(),
     ],
-    server: {
-        hmr: {
-            host: 'localhost'
-        }
-    }
 });
