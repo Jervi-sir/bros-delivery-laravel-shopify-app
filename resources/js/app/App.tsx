@@ -4,7 +4,7 @@ import { AppProvider, Page } from "@shopify/polaris";
 import enTranslations from '@shopify/polaris/locales/en.json'
 import MissingApiKey from "./components/MissingApiKey";
 import FakeDataCreator from "./components/FakeDataCreator";
-import useAxios from "./hooks/axios";
+import useAxios from "./hooks/useAxios";
 
 const App = () => {
 

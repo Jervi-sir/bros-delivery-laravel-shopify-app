@@ -1,6 +1,6 @@
 import { Button, Toast } from "@shopify/polaris";
 import React, { useState } from "react";
-import useAxios from "../hooks/axios";
+import useAxios from "../hooks/useAxios";
 const DeleteFakeDataButton = () => {
     const {axios} = useAxios();
     const [loading, setLoading] = useState(false);

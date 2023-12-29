@@ -1,6 +1,6 @@
 import { Page, Layout, RangeSlider, Button, FormLayout, Frame } from "@shopify/polaris";
 import React, { useCallback, useState } from 'react';
-import useAxios from "../hooks/axios";
+import useAxios from "../hooks/useAxios";
 import ValidationErrorBanner from './ValidationErrorBanner'
 import DeleteFakeDataButton from "./DeleteFakeDataButton";
 import { Toast } from "@shopify/polaris";

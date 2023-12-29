@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
+    @php
+        $inputPath = 'resources/js/' . env('VITE_APP_TYPE') .'/index.tsx' ;
+    @endphp
     @viteReactRefresh
-    @vite('resources/js/index.tsx')
+    @vite($inputPath)
 </head>
 <body>
 

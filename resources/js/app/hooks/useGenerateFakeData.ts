@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAxios from "./axios"
+import useAxios from "./useAxios"
 
 const useGenerateFakeData = () => {
     const {axios} = useAxios();
