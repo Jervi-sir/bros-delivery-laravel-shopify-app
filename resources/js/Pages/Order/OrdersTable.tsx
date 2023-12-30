@@ -7,10 +7,14 @@ import {
     Button,
     FormLayout,
     Select,
-    Grid
+    Grid,
+    Page,
+    IndexFilters,
+    ButtonGroup
 } from '@shopify/polaris';
 import React, { useCallback, useEffect, useState } from 'react';
 import PopupDelivery from './PopupDelivery';
+import ShopifyScelatonLayout from '@/Layouts/ShopifyScelatonLayout';
 
 const OrdersTable = ({ orders }) => {
     const [orderSamples, setOrderSamples] = useState([]);
@@ -96,53 +100,57 @@ const OrdersTable = ({ orders }) => {
         ),
     );
 
-    const [selectedDelivery, setSelectedDelivery] = useState({label: 'ZR Express', value: 'zr_express'});
+    const [selectedDelivery, setSelectedDelivery] = useState({ label: 'ZR Express', value: 'zr_express' });
     const handleSelectChange = useCallback(
-        (value: string, label: string) => setSelectedDelivery({value: value, label: label}),
+        (value: string, label: string) => setSelectedDelivery({ value: value, label: label }),
         [],
     );
     const deliveryOptions = [
-        {label: 'ZR Express', value: 'zr_express'},
+        { label: 'ZR Express', value: 'zr_express' },
     ];
 
     return (
-        <FormLayout>
-            <Grid>
-            <Select
-                label="Sort by"
-                labelInline
-                options={deliveryOptions}
-                onChange={handleSelectChange}
-                value={selectedDelivery.value}
-            />
-                <PopupDelivery orders={getSelectedOrders()} delivery_method={selectedDelivery} />
-            </Grid>
-            <IndexTable
-                condensed={useBreakpoints().smDown}
-                resourceName={resourceName}
-                itemCount={orderSamples.length}
-                selectedItemsCount={
-                    allResourcesSelected ? 'All' : selectedResources.length
-                }
-                onSelectionChange={handleSelectionChange}
-                headings={[
-                    { title: 'Order' },
-                    { title: 'Delivered ?' },
-                    { title: 'Customer' },
-                    { title: 'Phone' },
-                    { title: 'Item', alignment: 'start' },
-                    { title: 'Delivery Price' },
-                    { title: 'Price' },
-                    { title: 'Total Price' },
-                    { title: 'Delivery method' },
-                    { title: 'Address' },
-                    { title: 'Wilaya' },
-                    { title: 'Zip Code' },
-                ]}
-            >
-                {rowMarkup}
-            </IndexTable>
-        </FormLayout>
+        <ShopifyScelatonLayout title='Orders'>
+            <Page title='Orders' fullWidth>
+                <FormLayout>
+                    <ButtonGroup>
+                        <Select
+                            label="Sort by"
+                            labelInline
+                            options={deliveryOptions}
+                            onChange={handleSelectChange}
+                            value={selectedDelivery.value}
+                        />
+                    <PopupDelivery orders={getSelectedOrders()} delivery_method={selectedDelivery} />
+                    </ButtonGroup>
+                    <IndexTable
+                        condensed={useBreakpoints().smDown}
+                        resourceName={resourceName}
+                        itemCount={orderSamples.length}
+                        selectedItemsCount={
+                            allResourcesSelected ? 'All' : selectedResources.length
+                        }
+                        onSelectionChange={handleSelectionChange}
+                        headings={[
+                            { title: 'Order' },
+                            { title: 'Delivered ?' },
+                            { title: 'Customer' },
+                            { title: 'Phone' },
+                            { title: 'Item', alignment: 'start' },
+                            { title: 'Delivery Price' },
+                            { title: 'Price' },
+                            { title: 'Total Price' },
+                            { title: 'Delivery method' },
+                            { title: 'Address' },
+                            { title: 'Wilaya' },
+                            { title: 'Zip Code' },
+                        ]}
+                    >
+                        {rowMarkup}
+                    </IndexTable>
+                </FormLayout>
+            </Page>
+        </ShopifyScelatonLayout>
     );
 
 }

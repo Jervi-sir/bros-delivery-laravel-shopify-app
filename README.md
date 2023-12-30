@@ -41,10 +41,17 @@ To run this project, you will need to add the following environment variables to
 - [x] save these sent orders in DB in case we need them for analysis
 ### What s next
 
-- [ ] sidebar with (orders list, delivered list)
+- [x] sidebar with (orders list, delivered list)
 - [ ] login page
 - [ ] add credential page
 - [ ] manage credentials
+
+### Polaris squelaton used
+- https://polaris.shopify.com/components/utilities/frame
+- https://polaris.shopify.com/components/navigation/navigation?example=navigation-default
+- 
+
+
 ## Acknowledgements
 
  - [Shopify Polaris](https://polaris.shopify.com)

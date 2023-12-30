@@ -23,8 +23,7 @@ const PopupDelivery = ({ orders = null, delivery_method = null }) => {
     };
 
     return (
-        <div style={{ height: '20px' }}>
-            <Frame>
+        <div >
                 <Modal
                     activator={activator}
                     open={active}
@@ -55,7 +54,6 @@ const PopupDelivery = ({ orders = null, delivery_method = null }) => {
                         </Modal.Section>
                     ))}
                 </Modal>
-            </Frame>
         </div>
     )
 }
