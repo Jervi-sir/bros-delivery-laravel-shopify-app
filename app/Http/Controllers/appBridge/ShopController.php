@@ -22,4 +22,26 @@ class ShopController extends Controller
         ]);
 
     }
+
+    public function showSettings(Request $request)
+    {
+        $shop = $request->user();
+        $tokens = $shop->deliveryTokens;
+        $data['tokens'] = [];
+
+        foreach ($tokens as $key => $token) {
+            $data['tokens'][$token->deliveryCompany->code_name] = [
+                'label' => $token->deliveryCompany->name,
+                'code' => $token->deliveryCompany->code_name,
+                'token' => $token->access_token,
+                'last_update' => $token->updated_at,
+            ];
+        }
+
+        return response()->json([
+            'zr_express' => isset($data['tokens']['zr_express']) ? $data['tokens']['zr_express'] : [] ,
+        ]);
+
+    }
+
 }

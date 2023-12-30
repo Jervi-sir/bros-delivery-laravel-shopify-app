@@ -35,7 +35,7 @@ if (env('VITE_APP_TYPE') != 'curl') {
         Route::get('/shop-status', [appBridgeShops::class, 'getShopStatus']);
         Route::post('/fetch-deliveries', [appBridgeOrders::class, 'postDeliveries']);
         Route::get('/get-deliveries', [appBridgeOrders::class, 'showShippedOrders']);
-
+        Route::get('/get-settings', [appBridgeShops::class, 'showSettings']);
     });
 
 } else {

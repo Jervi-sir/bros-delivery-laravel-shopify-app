@@ -1,8 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Page, Layout, Form, TextField, Button, Card, FormLayout } from '@shopify/polaris';
+import useAxios from '../../hooks/useAxios';
 
 
 const SettingsMain = () => {
+    const { axios } = useAxios();
+    const [isLoading, setIsLoading] = useState(true);
+
     const [field1, setField1] = useState('asdasdsdd');
     const [displayCredential, setDisplayCredential] = useState('');
 
@@ -33,6 +37,13 @@ const SettingsMain = () => {
 
     useEffect(() => {
         handleField1Change(field1)
+        axios.get('/get-settings').then(response => {
+            console.log(response.data)
+            setIsLoading(false)
+        }).catch(error => {
+            setIsLoading(false)
+
+        })
     }, [])
 
     return (
