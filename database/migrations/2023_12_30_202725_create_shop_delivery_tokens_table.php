@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('shop_delivery_tokens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('delivery_company_id')->constrained();
+            $table->string('access_token');
             $table->timestamps();
         });
     }
