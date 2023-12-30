@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\appBridge;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -17,7 +19,8 @@ class OrderController extends Controller
         $shop = $request->user();
         $response = $shop->api()->rest('GET', '/admin/api/orders.json', [
             'query' => [
-                'status' => 'any',
+                'fulfillment_status' => 'unfulfilled',
+                //'financial_status' => 'pending',
                 'fields' => $fields
             ]
         ]);
@@ -67,4 +70,43 @@ class OrderController extends Controller
 
         return response()->json($data['orders']);
     }
+
+    public function postDeliveries(Request $request)
+    {
+        $shop = $request->user();
+        $orders = $request['orders'];
+
+        foreach ($orders as $key => $order) {
+            $new_order = new Order();
+            $new_order->user_id =  $shop->id;
+            $new_order->order_id =  $order['order'];
+            //product
+            $new_order->product_title =  $order['item_title'];
+            $new_order->product_price =  $order['item_price'];
+            $new_order->total =  $order['total'];
+            //customer
+            $new_order->customer_name =  $order['customer'];
+            $new_order->customer_phone =  $order['phone'];
+            //delivery
+            $new_order->delivery_price =  $order['delivery_price'];
+            $new_order->delivery_address =  $order['shipping_address'];
+            $new_order->wilaya =  $order['wilaya'];
+            $new_order->zip =  $order['zip'];
+            $new_order->delivery_company = $request['delivery_company']['value'];   //{label: 'ZR Express', value: 'zr_express'}
+
+            $new_order->save();
+        }
+
+        return response()->json($orders);
+    }
+
+    public function showShippedOrders(Request $request)
+    {
+        $shop = $request->user();
+
+        $orders = $shop->orders()->orderBy('created_at', 'desc')->get();
+
+        return response()->json($orders);
+    }
+
 }

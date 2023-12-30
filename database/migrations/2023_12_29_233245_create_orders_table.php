@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('zip')->nullable();
 
             $table->string('delivery_company')->nullable();
+            $table->string('delivery_status')->default('pending');  //done
 
             $table->timestamps();
         });

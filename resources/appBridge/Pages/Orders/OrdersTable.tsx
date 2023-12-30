@@ -13,7 +13,9 @@ import {
     ButtonGroup,
     Loading,
     Frame,
-    Spinner
+    Spinner,
+    Card,
+    LegacyCard
 } from '@shopify/polaris';
 import React, { useCallback, useEffect, useState } from 'react';
 import PopupDeliveryTable from './PopupDeliveryTable';
@@ -21,6 +23,7 @@ import useAxios from '../../hooks/useAxios';
 
 const OrdersTable = () => {
     const [orderSamples, setOrderSamples] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const { axios } = useAxios();
 
     const structureOrders = (laravelData) => {
@@ -49,7 +52,9 @@ const OrdersTable = () => {
     useEffect(() => {
         axios.get('/orders-not-fulfilled').then(response => {
             setOrderSamples(structureOrders(response.data));
+            setIsLoading(false)
         }).catch(error => {
+            setIsLoading(false)
 
         })
     }, []);
@@ -113,53 +118,58 @@ const OrdersTable = () => {
     ];
 
     return (
-        <Page fullWidth>
+        <>
             {
-                orderSamples.length === 0 &&
+                isLoading &&
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Spinner accessibilityLabel="Spinner example" size="large" />
                 </div>
             }
-            <div hidden={orderSamples.length === 0}>
+            <div hidden={isLoading}>
             <FormLayout >
-                <ButtonGroup >
-                    <Select
-                        label="Sort by"
-                        labelInline
-                        options={deliveryOptions}
-                        onChange={handleSelectChange}
-                        value={selectedDelivery.value}
-                    />
-                    <PopupDeliveryTable orders={getSelectedOrders()} delivery_method={selectedDelivery} />
-                </ButtonGroup>
-                <IndexTable
-                    condensed={useBreakpoints().smDown}
-                    resourceName={resourceName}
-                    itemCount={orderSamples.length}
-                    selectedItemsCount={
-                        allResourcesSelected ? 'All' : selectedResources.length
-                    }
-                    onSelectionChange={handleSelectionChange}
-                    headings={[
-                        { title: 'Order' },
-                        { title: 'Delivered ?' },
-                        { title: 'Customer' },
-                        { title: 'Phone' },
-                        { title: 'Item', alignment: 'start' },
-                        { title: 'Delivery Price' },
-                        { title: 'Price' },
-                        { title: 'Total Price' },
-                        { title: 'Delivery method' },
-                        { title: 'Address' },
-                        { title: 'Wilaya' },
-                        { title: 'Zip Code' },
-                    ]}
-                >
-                    {rowMarkup}
-                </IndexTable>
+                <Card>
+                    <ButtonGroup gap="loose">
+                        {/* <Text variant="headingSm" as="h6">Deliver with : </Text> */}
+                        <Select
+                            label="Deliver with: "
+                            labelInline
+                            options={deliveryOptions}
+                            onChange={handleSelectChange}
+                            value={selectedDelivery.value}
+                        />
+                        <PopupDeliveryTable orders={getSelectedOrders()} delivery_method={selectedDelivery} />
+                    </ButtonGroup>
+                </Card>
+                <LegacyCard>
+                    <IndexTable
+                        condensed={useBreakpoints().smDown}
+                        resourceName={resourceName}
+                        itemCount={orderSamples.length}
+                        selectedItemsCount={
+                            allResourcesSelected ? 'All' : selectedResources.length
+                        }
+                        onSelectionChange={handleSelectionChange}
+                        headings={[
+                            { title: 'Order' },
+                            { title: 'Delivered ?' },
+                            { title: 'Customer' },
+                            { title: 'Phone' },
+                            { title: 'Item', alignment: 'start' },
+                            { title: 'Delivery Price' },
+                            { title: 'Price' },
+                            { title: 'Total Price' },
+                            { title: 'Delivery method' },
+                            { title: 'Address' },
+                            { title: 'Wilaya' },
+                            { title: 'Zip Code' },
+                        ]}
+                    >
+                        {rowMarkup}
+                    </IndexTable>
+                </LegacyCard>
             </FormLayout>
             </div>
-        </Page>
+        </>
     );
 
 }

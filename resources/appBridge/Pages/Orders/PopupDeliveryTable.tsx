@@ -1,39 +1,35 @@
-import { Badge, BlockStack, Button, DataTable, Divider, Frame, IndexTable, LegacyCard, Modal, Text, TextContainer, useBreakpoints } from '@shopify/polaris';
+import { Badge, BlockStack, Button, DataTable, Divider, Frame, IndexTable, LegacyCard, Modal, Page, Text, TextContainer, useBreakpoints } from '@shopify/polaris';
 import axios from 'axios';
 import { useState, useCallback, useEffect } from 'react';
 import React from 'react';
 
 const PopupDeliveryTable = ({ orders, delivery_method }) => {
     const [selectedOrders, setSelectedOrders] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
     const [active, setActive] = useState(false);
+    const [totalPrice, setTotalPrice] = useState('');
+    const [totalItems, setTotalItems] = useState('');
 
     const handleCancel = useCallback(() => setActive(!active), [active]);
     const handleChange = useCallback(() => setActive(!active), [active]);
     const handleScrollBottom = useCallback(() => alert('Scrolled to bottom'), []);
-    const activator = <Button onClick={handleChange} disabled={orders.length == 0}>Run Delivery</Button>;
+    const activator = <Button onClick={handleChange} disabled={orders.length == 0} variant='primary' >Process Delivery</Button>;
 
     const postOrdersToLaravel = async () => {
         try {
+            setIsFetching(true);
             const response = await axios.post('/fetch-deliveries', {
-                orders: orders
+                orders: orders,
+                delivery_company: delivery_method //{label: 'ZR Express', value: 'zr_express'}
+            }).then((response) => {
+                setIsFetching(false);
+                console.log('Response:', response.data);
             });
-            console.log('Response:', response.data);
         } catch (error) {
+            setIsFetching(false);
             console.error('Error posting orders:', error);
         }
     };
-
-    const rows = [
-        ['Emerald Silk Gown', '$875.00', 124689, 140, '$122,500.00'],
-        ['Mauve Cashmere Scarf', '$230.00', 124533, 83, '$19,090.00'],
-        [
-          'Navy Merino Wool Blazer with khaki chinos and yellow belt',
-          '$445.00',
-          124518,
-          32,
-          '$14,240.00',
-        ],
-    ];
 
     useEffect(() => {
         const structuredRows = orders.map(order => [
@@ -41,7 +37,13 @@ const PopupDeliveryTable = ({ orders, delivery_method }) => {
             `${order.total}`, order.delivery_method, order.shipping_address,
             order.wilaya, order.zip
         ]);
+
+        const totalItems = orders.length;
+        const totalPrice = orders.reduce((sum, order) => sum + parseFloat(order.total), 0).toFixed(2);
+
         setSelectedOrders(structuredRows);
+        setTotalItems(totalItems + (totalItems != 1 ? ' Items' : ' Item'));
+        setTotalPrice(totalPrice+ ' DA');
     }, [orders]);
 
     return (
@@ -56,6 +58,7 @@ const PopupDeliveryTable = ({ orders, delivery_method }) => {
                 primaryAction={{
                     content: 'Deliver with ' + delivery_method.label,
                     onAction: postOrdersToLaravel,
+                    loading: isFetching
                 }}
                 secondaryActions={[
                     {
@@ -68,15 +71,18 @@ const PopupDeliveryTable = ({ orders, delivery_method }) => {
                     <Modal.Section >
                         <DataTable
                             columnContentTypes={[
-                                'text','text','text','text','text','text','text','text','text', //'numeric',
+                                'text','text','text','text','numeric','text','text','text','numeric', //'numeric',
                             ]}
                             headings={[
                                 'Order', 'Customer', 'Phone', 'Item', 'Total Price', 'Delivery method', 'Address', 'Wilaya', 'Zip Code',
                             ]}
                             rows={selectedOrders}
-                            totals={['', '', '','3 Items','$155,830.00','','', '', '']}
+                            totals={['', '', '', totalItems, totalPrice,'','', '', '']}
                             showTotalsInFooter
-
+                            hideScrollIndicator
+                            hoverable
+                            stickyHeader
+                            fixedFirstColumns={true}
                         />
                     </Modal.Section>
                 }

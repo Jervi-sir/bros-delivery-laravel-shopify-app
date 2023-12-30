@@ -58,8 +58,8 @@ const AnalysisMain = () => {
 const InfoCard = ({ title, content, badgeStatus = null }) => {
     return (
         <Card >
-            <p><Text tone='subdued'>{title}</Text></p>
-            <p>{badgeStatus ? <Badge tone={badgeStatus}>{content}</Badge> : content}</p>
+            <Text tone='subdued'>{title}</Text>
+            {badgeStatus ? <Badge tone={badgeStatus}>{content}</Badge> : content}
         </Card>
     );
 };

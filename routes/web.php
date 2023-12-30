@@ -33,6 +33,8 @@ if (env('VITE_APP_TYPE') != 'curl') {
 
         Route::get('/orders-not-fulfilled', [appBridgeOrders::class, 'getNewOrders']);
         Route::get('/shop-status', [appBridgeShops::class, 'getShopStatus']);
+        Route::post('/fetch-deliveries', [appBridgeOrders::class, 'postDeliveries']);
+        Route::get('/get-deliveries', [appBridgeOrders::class, 'showShippedOrders']);
 
     });
 
