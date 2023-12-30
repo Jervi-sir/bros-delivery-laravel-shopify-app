@@ -5,6 +5,7 @@ import enTranslations from '@shopify/polaris/locales/en.json'
 import MissingApiKey from "./components/MissingApiKey";
 import FakeDataCreator from "./components/FakeDataCreator";
 import useAxios from "./hooks/useAxios";
+import Main from "././Pages/Main"
 
 const App = () => {
 
@@ -30,7 +31,8 @@ const App = () => {
     return (
         <AppProvider i18n={enTranslations}>
             <Provider config={ appBridgeConfig }>
-                <FakeDataCreator />
+                {/*  <FakeDataCreator /> */}
+                <Main />
             </Provider>
         </AppProvider>
     );

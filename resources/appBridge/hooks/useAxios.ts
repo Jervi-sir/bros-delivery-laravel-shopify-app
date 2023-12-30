@@ -9,7 +9,6 @@ const useAxios = () => {
 
     useEffect(() => {
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-
         const interceptor = axios.interceptors.request.use(function (config) {
             return getSessionToken(app).then(token => {
                 config.headers.Authorization = `Bearer ${ token }`

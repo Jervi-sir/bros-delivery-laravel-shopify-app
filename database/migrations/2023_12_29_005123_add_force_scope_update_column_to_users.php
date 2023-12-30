@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('force_scope_update')->default(false);
+            $table->boolean('force_scope_update')->default(true);
         });
     }
 
