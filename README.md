@@ -60,8 +60,23 @@ INSERT INTO plans (`type`,`name`,`price`,`interval`,`capped_amount`,`terms`,`tri
 ('RECURRING','Test Plan',5.00,'EVERY_30_DAYS',10.00,'Test terms',7,FALSE,1,NULL,NULL);
 ```
 
+### Add webhooks
+
+* for user that deleted the app, `follow the laravel shopify api doc`
+    * then in Partner's shopify > App Setup > GDPR mandatory Webhooks > paste these
+        
+        ```
+        ur ngrk url/webhook/customers-data-request
+        ur ngrk url/webhook/customers-redact
+        ur ngrk url/webhook/shop-redact
+        ```
+
 ## Acknowledgements
 
+ - [Redis on windows](https://www.youtube.com/watch?v=Mw-3afXpSt0)
+ - [Redis on windows Repo](https://github.com/microsoftarchive/redis/releases)
+ 
+ - [Redis on windows](https://www.youtube.com/watch?v=Mw-3afXpSt0)
  - [Shopify Polaris](https://polaris.shopify.com)
  - [Shopify REST API](https://shopify.dev/docs/api/admin-rest)
  - [Laracast Course for App Bridge](https://laracasts.com/series/build-shopify-apps-with-laravel)

@@ -52,7 +52,7 @@ class PremiumController extends Controller
     public function destroy(Request $request): JsonResponse
     {
         $shop = $request->user();
-
+        dd($shop);
         if ($shop->plan?->price <= 0) {
             return $this->responseFactory->json();
         }
