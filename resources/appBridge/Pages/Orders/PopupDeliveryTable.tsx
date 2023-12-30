@@ -1,17 +1,19 @@
-import { Badge, BlockStack, Button, DataTable, Divider, Frame, IndexTable, LegacyCard, Modal, Page, Text, TextContainer, useBreakpoints } from '@shopify/polaris';
+import { Badge, BlockStack, Button, DataTable, Divider, Frame, IndexTable, LegacyCard, Modal, Page, Text, TextContainer, Toast, useBreakpoints } from '@shopify/polaris';
 import axios from 'axios';
 import { useState, useCallback, useEffect } from 'react';
 import React from 'react';
 
-const PopupDeliveryTable = ({ orders, delivery_method }) => {
+const PopupDeliveryTable = ({ orders, delivery_method, onSuccessfulDelivery }) => {
     const [selectedOrders, setSelectedOrders] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
-    const [active, setActive] = useState(false);
+    const [modalIsActive, setModalActive] = useState(false);
     const [totalPrice, setTotalPrice] = useState('');
     const [totalItems, setTotalItems] = useState('');
 
-    const handleCancel = useCallback(() => setActive(!active), [active]);
-    const handleChange = useCallback(() => setActive(!active), [active]);
+    const [toastMessage, setToastMessage] = useState('');
+
+    const handleCancel = useCallback(() => setModalActive(!modalIsActive), [modalIsActive]);
+    const handleChange = useCallback(() => setModalActive(!modalIsActive), [modalIsActive]);
     const handleScrollBottom = useCallback(() => alert('Scrolled to bottom'), []);
     const activator = <Button onClick={handleChange} disabled={orders.length == 0} variant='primary' >Process Delivery</Button>;
 
@@ -24,6 +26,9 @@ const PopupDeliveryTable = ({ orders, delivery_method }) => {
             }).then((response) => {
                 setIsFetching(false);
                 console.log('Response:', response.data);
+                setToastMessage('Products passed to delivery process ...')
+                setModalActive(false);
+                onSuccessfulDelivery(); // Call the callback function
             });
         } catch (error) {
             setIsFetching(false);
@@ -50,7 +55,7 @@ const PopupDeliveryTable = ({ orders, delivery_method }) => {
         <>
             <Modal
                 activator={activator}
-                open={active}
+                open={modalIsActive}
                 title="Scrollable content"
                 onClose={handleChange}
                 onScrolledToBottom={handleScrollBottom}
@@ -87,6 +92,8 @@ const PopupDeliveryTable = ({ orders, delivery_method }) => {
                     </Modal.Section>
                 }
             </Modal>
+            {toastMessage &&
+                <Toast content={toastMessage} onDismiss={() => { setToastMessage('') }} />}
         </>
     )
 }

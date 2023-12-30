@@ -58,8 +58,7 @@ const SettingsMain = () => {
     }, [])
 
     return (
-
-        <Page >
+        <>
             {
                 isLoading &&
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -97,7 +96,7 @@ const SettingsMain = () => {
             </div>
             {toastMessage &&
                 <Toast content={toastMessage} onDismiss={() => { setToastMessage('') }} />}
-        </Page>
+        </>
     );
 
 }

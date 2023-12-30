@@ -9,8 +9,8 @@ const ShippedTable = () => {
 
     const structureOrders = (laravelData) => {
         const reformated = laravelData.map(order => ({
-            id: order.order_id,
-            order: `#${order.order_id}`,
+            id: order.id,
+            order: `${order.order_id}`,
             is_delivered: order.delivery_status != 'pending' ? <Badge progress="complete" tone="success">Yes</Badge> : <Badge progress="incomplete">No</Badge>,
 
             customer: `${order.customer_name}`,

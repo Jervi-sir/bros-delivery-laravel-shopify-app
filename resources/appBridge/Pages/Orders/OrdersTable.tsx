@@ -27,6 +27,26 @@ const OrdersTable = () => {
     const { axios } = useAxios();
     const [deliveryOptions, setDeliveryOptions] = useState([]);
 
+    const { selectedResources, allResourcesSelected, handleSelectionChange, clearSelection } = useIndexResourceState(orderSamples);
+
+    const refreshParent = () => {
+        setOrderSamples([]);
+        setDeliveryOptions([]);
+        setIsLoading(true);
+        clearSelection();
+        fetchOrders()
+    };
+
+    const fetchOrders = () => {
+        axios.get('/get-not-fulfilled-orders').then(response => {
+            setOrderSamples(structureOrders(response.data.orders));
+            setIsLoading(false)
+            setDeliveryOptions(response.data.deliveries)
+        }).catch(error => {
+            setIsLoading(false)
+
+        })
+    }
     const structureOrders = (laravelData) => {
         const reformated = laravelData.map(order => ({
             id: order.id,
@@ -51,14 +71,7 @@ const OrdersTable = () => {
     };
 
     useEffect(() => {
-        axios.get('/get-not-fulfilled-orders').then(response => {
-            setOrderSamples(structureOrders(response.data.orders));
-            setIsLoading(false)
-            setDeliveryOptions(response.data.deliveries)
-        }).catch(error => {
-            setIsLoading(false)
-
-        })
+        fetchOrders()
     }, []);
 
     const resourceName = {
@@ -66,14 +79,10 @@ const OrdersTable = () => {
         plural: 'orders',
     };
 
-    const { selectedResources, allResourcesSelected, handleSelectionChange } =
-        useIndexResourceState(orderSamples);
-
     // Function to get the selected orders
     const getSelectedOrders = () => {
         return orderSamples.filter(order => selectedResources.includes(order.id));
     }
-
 
     const rowMarkup = orderSamples.map(
         (
@@ -136,7 +145,7 @@ const OrdersTable = () => {
                             onChange={handleSelectChange}
                             value={selectedDelivery.value}
                         />
-                        <PopupDeliveryTable orders={getSelectedOrders()} delivery_method={selectedDelivery} />
+                        <PopupDeliveryTable orders={getSelectedOrders()} delivery_method={selectedDelivery} onSuccessfulDelivery={refreshParent}/>
                     </ButtonGroup>
                 </Card>
                 <LegacyCard>

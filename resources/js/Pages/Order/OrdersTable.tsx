@@ -19,7 +19,6 @@ import ShopifyScelatonLayout from '@/Layouts/ShopifyScelatonLayout';
 const OrdersTable = ({ orders }) => {
     const [orderSamples, setOrderSamples] = useState([]);
 
-
     const structureOrders = (laravelData) => {
         return laravelData.map(order => ({
             id: order.id,
