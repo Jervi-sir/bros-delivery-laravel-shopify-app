@@ -54,6 +54,6 @@ class User extends Authenticatable implements IShopModel
 
     public function fakeCustomers(): HasMany
     {
-        return $this->hasMany(FakeComposer::class);
+        return $this->hasMany(FakeCustomer::class);
     }
 }
