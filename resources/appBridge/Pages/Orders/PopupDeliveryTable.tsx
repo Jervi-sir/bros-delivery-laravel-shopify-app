@@ -1,4 +1,4 @@
-import { Badge, BlockStack, Button, DataTable, Divider, Frame, IndexTable, Modal, Text, TextContainer, useBreakpoints } from '@shopify/polaris';
+import { Badge, BlockStack, Button, DataTable, Divider, Frame, IndexTable, LegacyCard, Modal, Text, TextContainer, useBreakpoints } from '@shopify/polaris';
 import axios from 'axios';
 import { useState, useCallback, useEffect } from 'react';
 import React from 'react';
@@ -42,7 +42,6 @@ const PopupDeliveryTable = ({ orders, delivery_method }) => {
             order.wilaya, order.zip
         ]);
         setSelectedOrders(structuredRows);
-        console.log(orders)
     }, [orders]);
 
     return (

@@ -113,7 +113,7 @@ const OrdersTable = () => {
     ];
 
     return (
-        <Page title='Orders' fullWidth>
+        <Page fullWidth>
             {
                 orderSamples.length === 0 &&
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

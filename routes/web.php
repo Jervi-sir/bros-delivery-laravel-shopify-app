@@ -9,6 +9,7 @@ use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\curl\OrderController;
 use App\Http\Controllers\appBridge\OrderController as appBridgeOrders;
+use App\Http\Controllers\appBridge\ShopController as appBridgeShops;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ if (env('VITE_APP_TYPE') != 'curl') {
         Route::delete('/premium', [PremiumController::class, 'destroy']);
 
         Route::get('/orders-not-fulfilled', [appBridgeOrders::class, 'getNewOrders']);
+        Route::get('/shop-status', [appBridgeShops::class, 'getShopStatus']);
 
     });
 

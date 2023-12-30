@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('wilaya')->nullable();
             $table->string('zip')->nullable();
 
+            $table->string('delivery_company')->nullable();
+
             $table->timestamps();
         });
     }

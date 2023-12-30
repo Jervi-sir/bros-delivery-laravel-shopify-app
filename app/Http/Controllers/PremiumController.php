@@ -46,6 +46,9 @@ class PremiumController extends Controller
             ]
         );
 
+        $shop->last_payment_at = now();
+        $shop->save();
+
         return $this->responseFactory->json(['redirectUrl' => $redirectUrl]);
     }
 
