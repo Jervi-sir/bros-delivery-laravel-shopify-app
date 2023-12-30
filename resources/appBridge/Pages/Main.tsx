@@ -1,5 +1,5 @@
 import React, { Suspense, startTransition } from "react";
-import { LegacyCard, LegacyTabs, Tabs } from '@shopify/polaris';
+import { Frame, LegacyCard, LegacyTabs, Tabs } from '@shopify/polaris';
 import { useState, useCallback } from 'react';
 
 const ShippedOrders = React.lazy(() => import('./Orders/ShippedTable'));
@@ -65,13 +65,15 @@ const Main = () => {
     }
 
     return (
-        <LegacyCard>
-            <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange} fitted >
-                <LegacyCard.Section>
-                    {content}
-                </LegacyCard.Section>
-            </Tabs>
-        </LegacyCard>
+        <Frame>
+            <LegacyCard>
+                <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange} fitted >
+                    <LegacyCard.Section>
+                        {content}
+                    </LegacyCard.Section>
+                </Tabs>
+            </LegacyCard>
+        </Frame>
     );
 }
 

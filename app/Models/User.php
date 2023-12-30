@@ -62,8 +62,4 @@ class User extends Authenticatable implements IShopModel
         return $this->hasMany(Order::class);
     }
 
-    public function deliveryTokens(): HasMany
-    {
-        return $this->hasMany(ShopDeliveryToken::class);
-    }
 }

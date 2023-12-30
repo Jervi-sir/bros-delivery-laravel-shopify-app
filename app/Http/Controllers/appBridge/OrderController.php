@@ -68,7 +68,21 @@ class OrderController extends Controller
             ];
         }
 
-        return response()->json($data['orders']);
+        $data['deliveries'] = [];
+
+        if ($shop->zr_express_token) {
+            $data['deliveries'][] = ['label' => 'ZR Express', 'value' => 'zr_express'];
+        }
+
+        // Assuming there are other conditions for other delivery options
+        //if ($shop->another_delivery_condition) {
+        //   $data['deliveries'][] = ['label' => 'Another Delivery', 'value' => 'another_value'];
+        //}
+
+        return response()->json([
+            'orders' => $data['orders'],
+            'deliveries' => $data['deliveries'],
+        ]);
     }
 
     public function postDeliveries(Request $request)

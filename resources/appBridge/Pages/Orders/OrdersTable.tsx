@@ -25,6 +25,7 @@ const OrdersTable = () => {
     const [orderSamples, setOrderSamples] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const { axios } = useAxios();
+    const [deliveryOptions, setDeliveryOptions] = useState([]);
 
     const structureOrders = (laravelData) => {
         const reformated = laravelData.map(order => ({
@@ -50,9 +51,10 @@ const OrdersTable = () => {
     };
 
     useEffect(() => {
-        axios.get('/orders-not-fulfilled').then(response => {
-            setOrderSamples(structureOrders(response.data));
+        axios.get('/get-not-fulfilled-orders').then(response => {
+            setOrderSamples(structureOrders(response.data.orders));
             setIsLoading(false)
+            setDeliveryOptions(response.data.deliveries)
         }).catch(error => {
             setIsLoading(false)
 
@@ -113,9 +115,6 @@ const OrdersTable = () => {
         (value: string, label: string) => setSelectedDelivery({ value: value, label: label }),
         [],
     );
-    const deliveryOptions = [
-        { label: 'ZR Express', value: 'zr_express' },
-    ];
 
     return (
         <>

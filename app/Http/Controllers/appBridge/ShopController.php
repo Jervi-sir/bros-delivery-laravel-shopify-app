@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    public function getShopStatus (Request $request)
+    public function getShopStatus(Request $request)
     {
         $shop = $request->user();
-
 
         return response()->json([
             'plan_type' => 'Pro Plan',
@@ -20,28 +19,42 @@ class ShopController extends Controller
             'today_orders_shipped' => '20',
             'today_total_sale' => '200000 DA',
         ]);
-
     }
 
     public function showSettings(Request $request)
     {
         $shop = $request->user();
-        $tokens = $shop->deliveryTokens;
-        $data['tokens'] = [];
-
-        foreach ($tokens as $key => $token) {
-            $data['tokens'][$token->deliveryCompany->code_name] = [
-                'label' => $token->deliveryCompany->name,
-                'code' => $token->deliveryCompany->code_name,
-                'token' => $token->access_token,
-                'last_update' => $token->updated_at,
-            ];
-        }
+        $data['zr_express'] = $shop->zr_express_token;
 
         return response()->json([
-            'zr_express' => isset($data['tokens']['zr_express']) ? $data['tokens']['zr_express'] : [] ,
+            'zr_express' => $data['zr_express'],
         ]);
-
     }
 
+    public function updateSettings(Request $request)
+    {
+        $shop = $request->user();
+        $shop->zr_express_token = $request->zr_express_token;
+        $shop->save();
+
+        return response()->json([
+            'zr_express' => $request->zr_express_token,
+        ], 200);
+    }
 }
+
+
+
+/*
+ $tokens = $shop->deliveryTokens;
+$data['tokens'] = [];
+
+foreach ($tokens as $key => $token) {
+    $data['tokens'][$token->deliveryCompany->code_name] = [
+        'label' => $token->deliveryCompany->name,
+        'code' => $token->deliveryCompany->code_name,
+        'token' => $token->access_token,
+        'last_update' => $token->updated_at,
+    ];
+}
+-*/

@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('delivery_companies', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('code_name');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('zr_express_token')->nullable();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('delivery_companies');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

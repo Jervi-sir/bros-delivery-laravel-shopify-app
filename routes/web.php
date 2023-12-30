@@ -31,11 +31,12 @@ if (env('VITE_APP_TYPE') != 'curl') {
         Route::post('/premium', [PremiumController::class, 'store']);
         Route::delete('/premium', [PremiumController::class, 'destroy']);
 
-        Route::get('/orders-not-fulfilled', [appBridgeOrders::class, 'getNewOrders']);
+        Route::get('/get-not-fulfilled-orders', [appBridgeOrders::class, 'getNewOrders']);
         Route::get('/shop-status', [appBridgeShops::class, 'getShopStatus']);
         Route::post('/fetch-deliveries', [appBridgeOrders::class, 'postDeliveries']);
         Route::get('/get-deliveries', [appBridgeOrders::class, 'showShippedOrders']);
         Route::get('/get-settings', [appBridgeShops::class, 'showSettings']);
+        Route::post('/update-settings', [appBridgeShops::class, 'updateSettings']);
     });
 
 } else {
