@@ -32,6 +32,9 @@ To run this project, you will need to add the following environment variables to
     SHOPIFY_ACCESS_TOKEN=its from created dev app in shop not partner
 
     VITE_APP_TYPE=curl #appBridge, curl:: its to precise which one is gonna be used,especially for routing
+    SHOPIFY_WEBHOOK_1_TOPIC=APP_UNINSTALLED
+    SHOPIFY_WEBHOOK_1_ADDRESS=https://ngrok url/webhook/app-uninstalled
+
 
 ### what made in the `Curl` version
 - [x] consume the orders of the api token
@@ -51,6 +54,11 @@ To run this project, you will need to add the following environment variables to
 - https://polaris.shopify.com/components/navigation/navigation?example=navigation-default
 - 
 
+### To Add a billing plan
+```
+INSERT INTO plans (`type`,`name`,`price`,`interval`,`capped_amount`,`terms`,`trial_days`,`test`,`on_install`,`created_at`,`updated_at`) VALUES
+('RECURRING','Test Plan',5.00,'EVERY_30_DAYS',10.00,'Test terms',7,FALSE,1,NULL,NULL);
+```
 
 ## Acknowledgements
 

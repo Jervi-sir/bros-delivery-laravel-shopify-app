@@ -21,16 +21,16 @@ class FakerController extends Controller
     public function store(CreateFakeDataRequest $request): Response
      {
         $data = $request->validated();
-        $productsCount = $data['productsCount'];
-        $customersCount = $data['customersCount'];
-        $shop = $request->user();
+        $productsCount = $data['productsCount'] ?? 0;
+        $customersCount = $data['customersCount'] ?? 0;
+        $user = $request->user();
 
         if($productsCount > 0) {
-            $this->createProducts($productsCount, $shop);
+            $this->createProducts($productsCount, $user);
         }
 
-        if($customersCount > 0) {
-            $this->createCustomers($customersCount, $shop);
+        if($user->plan->price > 0 && $customersCount > 0) {
+            $this->createCustomers($customersCount, $user);
         }
 
         return $this->responseFactory->noContent();
@@ -38,9 +38,13 @@ class FakerController extends Controller
 
     public function destroy(Request $request): Response
     {
-        $shop = $request->user();
+        $user = $request->user();
 
-        $this->deleteProducts($shop);
+        $this->deleteProducts($user);
+
+        if ($user->plan?->price > 0) {
+            $this->deleteCustomers($user);
+        }
 
         return $this->responseFactory->noContent();
     }

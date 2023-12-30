@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\curl\OrderController;
-use App\Http\Controllers\FakerController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Middleware\CheckAccessScopes;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\FakerController;
+use App\Http\Middleware\CheckAccessScopes;
+use App\Http\Controllers\PremiumController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\curl\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,10 @@ if (env('VITE_APP_TYPE') != 'curl') {
         Route::view('/', 'app')->name('home');
         Route::post('/fake-data', [FakerController::class, 'store']);
         Route::delete('/fake-data', [FakerController::class, 'destroy']);
+        Route::get('/premium', [PremiumController::class, 'index']);
+        Route::post('/premium', [PremiumController::class, 'store']);
+        Route::delete('/premium', [PremiumController::class, 'destroy']);
+
     });
 
 } else {

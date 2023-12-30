@@ -7,7 +7,7 @@ const useGenerateFakeData = () => {
     const [errors, setErrors] = useState([]);
     const [toastMessage, setToastMessage] = useState('');
 
-    const fetchData = options => {
+    const generate = options => {
         setLoading(true)
         axios.post('/fake-data', options).then(response => {
             setLoading(false)
@@ -28,7 +28,7 @@ const useGenerateFakeData = () => {
     const dismissErrors = () => setErrors([]);
 
     return {
-        fetchData,
+        generate,
         loading,
         toastMessage,
         errors,
