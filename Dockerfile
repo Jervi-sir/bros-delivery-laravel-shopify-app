@@ -10,7 +10,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM php:8.2-cli
+FROM php:8.3-alpine
 WORKDIR /var/www
 COPY --from=builder /var/www .
 EXPOSE 80
