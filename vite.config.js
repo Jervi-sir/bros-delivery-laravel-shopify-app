@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             //input: 'resources/js/app.tsx',
-            input: 'resources/appBridge/app.tsx',
+            input: 'resources/appBridge/App.tsx',
             refresh: true,
         }),
         react(),

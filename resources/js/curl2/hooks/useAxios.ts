@@ -3,6 +3,10 @@ import { useEffect }                 from 'react'
 import { getSessionToken }           from '@shopify/app-bridge/utilities'
 import { useAppBridge, useNavigate } from '@shopify/app-bridge-react'
 
+interface window {
+    __SHOPIFY_HOST: string;
+}
+
 const useAxios = () => {
     const app      = useAppBridge()
     const navigate = useNavigate()
