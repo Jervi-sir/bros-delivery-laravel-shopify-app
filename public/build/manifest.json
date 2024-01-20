@@ -1,122 +1,83 @@
 {
-  "_Badge--r44bK65.js": {
-    "file": "assets/Badge--r44bK65.js",
+  "_Card-wUD3hrfQ.js": {
+    "file": "assets/Card-wUD3hrfQ.js",
     "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js"
+      "resources/appBridge/index.tsx"
     ]
   },
-  "_FormLayout-L2FP_CBw.js": {
-    "file": "assets/FormLayout-L2FP_CBw.js",
+  "_IndexTable-NRimpbQ3.js": {
+    "file": "assets/IndexTable-NRimpbQ3.js",
     "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js"
+      "resources/appBridge/index.tsx"
     ]
   },
-  "_IndexTable-9or-nEvV.js": {
-    "file": "assets/IndexTable-9or-nEvV.js",
+  "_Toast-6Umqpg9O.js": {
+    "file": "assets/Toast-6Umqpg9O.js",
     "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js",
-      "_TextField-DfkA9q-F.js",
-      "_Badge--r44bK65.js"
+      "resources/appBridge/index.tsx"
     ]
   },
-  "_InlineGrid-ImqbY0uP.js": {
-    "file": "assets/InlineGrid-ImqbY0uP.js",
+  "_useAxios-0bCRz5Bo.js": {
+    "file": "assets/useAxios-0bCRz5Bo.js",
     "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js"
+      "resources/appBridge/index.tsx"
     ]
   },
-  "_Layout-0QYUEL9W.js": {
-    "file": "assets/Layout-0QYUEL9W.js",
+  "resources/appBridge/Pages/Analysis/AnalysisMain.tsx": {
+    "file": "assets/AnalysisMain-X60TtAz_.js",
     "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js"
-    ]
+      "resources/appBridge/index.tsx",
+      "_useAxios-0bCRz5Bo.js",
+      "_Card-wUD3hrfQ.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/appBridge/Pages/Analysis/AnalysisMain.tsx"
   },
-  "_TextField-DfkA9q-F.js": {
-    "file": "assets/TextField-DfkA9q-F.js",
+  "resources/appBridge/Pages/Orders/OrdersTable.tsx": {
+    "file": "assets/OrdersTable-gX44rl5w.js",
     "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js"
-    ]
+      "resources/appBridge/index.tsx",
+      "_useAxios-0bCRz5Bo.js",
+      "_IndexTable-NRimpbQ3.js",
+      "_Toast-6Umqpg9O.js",
+      "_Card-wUD3hrfQ.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/appBridge/Pages/Orders/OrdersTable.tsx"
   },
-  "_Toast-Nkl0pAhm.js": {
-    "file": "assets/Toast-Nkl0pAhm.js",
+  "resources/appBridge/Pages/Orders/ShippedTable.tsx": {
+    "file": "assets/ShippedTable-Kxf-YnVu.js",
     "imports": [
-      "resources/appBridge/App.tsx"
-    ]
+      "resources/appBridge/index.tsx",
+      "_useAxios-0bCRz5Bo.js",
+      "_IndexTable-NRimpbQ3.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/appBridge/Pages/Orders/ShippedTable.tsx"
   },
-  "_useAxios-9_qVDjtr.js": {
-    "file": "assets/useAxios-9_qVDjtr.js",
+  "resources/appBridge/Pages/Settings/SettingsMain.tsx": {
+    "file": "assets/SettingsMain-dfRGsh8G.js",
     "imports": [
-      "resources/appBridge/App.tsx"
-    ]
+      "resources/appBridge/index.tsx",
+      "_useAxios-0bCRz5Bo.js",
+      "_Card-wUD3hrfQ.js",
+      "_Toast-6Umqpg9O.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/appBridge/Pages/Settings/SettingsMain.tsx"
   },
-  "resources/appBridge/App.tsx": {
+  "resources/appBridge/index.tsx": {
+    "css": [
+      "assets/index-DJXrcO_W.css"
+    ],
     "dynamicImports": [
       "resources/appBridge/Pages/Orders/ShippedTable.tsx",
       "resources/appBridge/Pages/Orders/OrdersTable.tsx",
       "resources/appBridge/Pages/Settings/SettingsMain.tsx",
       "resources/appBridge/Pages/Analysis/AnalysisMain.tsx"
     ],
-    "file": "assets/App-lJcLEQj3.js",
+    "file": "assets/index-RABUB5AY.js",
     "isEntry": true,
-    "src": "resources/appBridge/App.tsx"
-  },
-  "resources/appBridge/Pages/Analysis/AnalysisMain.tsx": {
-    "file": "assets/AnalysisMain-5H3JOIMp.js",
-    "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js",
-      "_Layout-0QYUEL9W.js",
-      "_FormLayout-L2FP_CBw.js",
-      "_InlineGrid-ImqbY0uP.js",
-      "_Badge--r44bK65.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/appBridge/Pages/Analysis/AnalysisMain.tsx"
-  },
-  "resources/appBridge/Pages/Orders/OrdersTable.tsx": {
-    "file": "assets/OrdersTable-DKAf1IRH.js",
-    "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js",
-      "_TextField-DfkA9q-F.js",
-      "_IndexTable-9or-nEvV.js",
-      "_Toast-Nkl0pAhm.js",
-      "_InlineGrid-ImqbY0uP.js",
-      "_Badge--r44bK65.js",
-      "_FormLayout-L2FP_CBw.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/appBridge/Pages/Orders/OrdersTable.tsx"
-  },
-  "resources/appBridge/Pages/Orders/ShippedTable.tsx": {
-    "file": "assets/ShippedTable-PkSY-tMO.js",
-    "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js",
-      "_IndexTable-9or-nEvV.js",
-      "_Badge--r44bK65.js",
-      "_TextField-DfkA9q-F.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/appBridge/Pages/Orders/ShippedTable.tsx"
-  },
-  "resources/appBridge/Pages/Settings/SettingsMain.tsx": {
-    "file": "assets/SettingsMain-itV69Grv.js",
-    "imports": [
-      "resources/appBridge/App.tsx",
-      "_useAxios-9_qVDjtr.js",
-      "_TextField-DfkA9q-F.js",
-      "_Layout-0QYUEL9W.js",
-      "_FormLayout-L2FP_CBw.js",
-      "_Toast-Nkl0pAhm.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/appBridge/Pages/Settings/SettingsMain.tsx"
+    "src": "resources/appBridge/index.tsx"
   }
 }

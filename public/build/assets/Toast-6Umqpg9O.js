@@ -1,0 +1,1 @@
+import{r as e,a5 as r,a6 as n}from"./index-RABUB5AY.js";const m=e.memo(function(s){const t=e.useId(),{showToast:o,hideToast:a}=r();return n(()=>(o({id:t,...s}),()=>{a({id:t})}),[s]),null});export{m as T};
