@@ -26,6 +26,21 @@ class ShopController extends Controller
         $shop = $request->user();
         $data['zr_express'] = $shop->zr_express_token;
 
+        $platform = 'ZR Express';
+        $deliveryCredential = $shop->deliveryCredentials()
+                                    ->where('platform', $platform)
+                                    ->first();
+
+        if ($deliveryCredential) {
+            return response()->json([
+                'message' => 'Delivery Credential',
+                'deliveryCredential' => $deliveryCredential
+            ], 200);
+        } else {
+            return response()->json(['message' => 'Delivery Credential not found'], 404);
+        }
+
+
         return response()->json([
             'zr_express' => $data['zr_express'],
         ]);
@@ -33,12 +48,27 @@ class ShopController extends Controller
 
     public function updateSettings(Request $request)
     {
+        $request->validate([
+            'platform' => 'nullable',
+            'token_1' => 'nullable',
+            'token_2' => 'nullable',
+            'phone_number' => 'nullable',
+        ]);
+
         $shop = $request->user();
-        $shop->zr_express_token = $request->zr_express_token;
-        $shop->save();
+        $deliveryCredentials = $shop->deliveryCredentials()->updateOrCreate(
+            ['platform' => 'ZR Express'], // Criteria: 'platform' for the specific user
+            [
+                'token_1' => $request->token_1,
+                'token_2' => $request->token_2,
+                'phone_number' => $request->phone_number
+            ]
+        );
+
 
         return response()->json([
-            'zr_express' => $request->zr_express_token,
+            'message' => 'saved successfully',
+            'deliveryCredentials' => $deliveryCredentials,
         ], 200);
     }
 }

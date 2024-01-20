@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\appBridge;
 
-use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\User;
+use App\Models\Order;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 
 class OrderController extends Controller
 {
@@ -87,11 +89,21 @@ class OrderController extends Controller
             ];
         }
 
-        $data['deliveries'] = [];
 
-        if ($shop->zr_express_token) {
-            $data['deliveries'][] = ['label' => 'ZR Express', 'value' => 'zr_express'];
+        $deliveryCredentials = $shop->deliveryCredentials()->get();
+        $deliveryOptions = [];
+        foreach ($deliveryCredentials as $credential) {
+            $deliveryOptions[] = [
+                'label' => $credential->platform, // Assuming 'platform' is the field name
+                'value' => $credential->platform // Convert platform name to snake_case for value
+            ];
         }
+    
+        //$data['deliveries'] = [];
+
+        //if ($shop->zr_express_token) {
+        //    $data['deliveries'][] = ['label' => 'ZR Express', 'value' => 'zr_express'];
+        //}
 
         // Assuming there are other conditions for other delivery options
         //if ($shop->another_delivery_condition) {
@@ -102,7 +114,7 @@ class OrderController extends Controller
             'next_page' => $response['link']['next'],
             'previous_page' => $response['link']['previous'],
             'orders' => $data['orders'],
-            'deliveries' => $data['deliveries'],
+            'deliveries' => $deliveryOptions,
         ]);
     }
 
@@ -111,7 +123,42 @@ class OrderController extends Controller
 
         $shop = $request->user();
         $orders = $request['orders'];
-        return response()->json($orders);
+
+        $token = 'VOTRE TOKEN';
+        $key = 'VOTRE CLE';
+
+        $response = Http::withHeaders([
+            'token' => $token,
+            'key' => $key,
+        ])->post('https://example.com/add_colis', [
+            'Colis' => [
+                [
+                    'Tracking' => 'VotreTracking',
+                    // ... other fields ...
+                    'id_Externe' => '01',
+                    // ... other fields ...
+                ],
+                [
+                    'Tracking' => 'VotreTracking',
+                    // ... other fields ...
+                    'id_Externe' => '02',
+                    // ... other fields ...
+                ],
+                // ... more parcels if needed ...
+            ],
+        ]);
+
+        // Handle the response
+        if ($response->successful()) {
+            // Process successful response
+            return $response->body();
+        } else {
+            // Handle errors
+            return response()->json(['error' => 'API request failed'], 500);
+        }
+
+        
+        return response()->json(json_decode($orders[0]['all']));
 
         foreach ($orders as $key => $order) {
             $new_order = new Order();
