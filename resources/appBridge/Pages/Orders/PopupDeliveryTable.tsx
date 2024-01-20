@@ -20,15 +20,15 @@ const PopupDeliveryTable = ({ orders, delivery_method, onSuccessfulDelivery }) =
     const postOrdersToLaravel = async () => {
         try {
             setIsFetching(true);
-            const response = await axios.post('/fetch-deliveries', {
+            await axios.post('/fetch-deliveries', {
                 orders: orders,
                 delivery_company: delivery_method //{label: 'ZR Express', value: 'zr_express'}
             }).then((response) => {
                 setIsFetching(false);
                 console.log('Response:', response.data);
-                setToastMessage('Products passed to delivery process ...')
-                setModalActive(false);
-                onSuccessfulDelivery(); // Call the callback function
+                //setToastMessage('Products passed to delivery process ...')
+                //setModalActive(false);
+                //onSuccessfulDelivery(); // Call the callback function
             });
         } catch (error) {
             setIsFetching(false);
@@ -38,13 +38,13 @@ const PopupDeliveryTable = ({ orders, delivery_method, onSuccessfulDelivery }) =
 
     useEffect(() => {
         const structuredRows = orders.map(order => [
-            order.id, order.customer, order.phone, order.item_title,
-            `${order.total}`, order.delivery_method, order.shipping_address,
-            order.wilaya, order.zip
+            order.id, order.customer_name, order.customer_phone, order.item_title,
+            `${order.total_price}`, order.delivery_method_ar, order.city,
+            order.province
         ]);
 
         const totalItems = orders.length;
-        const totalPrice = orders.reduce((sum, order) => sum + parseFloat(order.total), 0).toFixed(2);
+        const totalPrice = orders.reduce((sum, order) => sum + parseFloat(order.total_price), 0).toFixed(2);
 
         setSelectedOrders(structuredRows);
         setTotalItems(totalItems + (totalItems != 1 ? ' Items' : ' Item'));
@@ -76,10 +76,10 @@ const PopupDeliveryTable = ({ orders, delivery_method, onSuccessfulDelivery }) =
                     <Modal.Section >
                         <DataTable
                             columnContentTypes={[
-                                'text','text','text','text','numeric','text','text','text','numeric', //'numeric',
+                                'text','text','text','text','numeric','text','text','text',//'numeric',
                             ]}
                             headings={[
-                                'Order', 'Customer', 'Phone', 'Item', 'Total Price', 'Delivery method', 'Address', 'Wilaya', 'Zip Code',
+                                'Order', 'Customer', 'Phone', 'Item', 'Total Price', 'Delivery method', 'Address', 'Wilaya', 
                             ]}
                             rows={selectedOrders}
                             totals={['', '', '', totalItems, totalPrice,'','', '', '']}

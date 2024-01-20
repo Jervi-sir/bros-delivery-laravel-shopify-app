@@ -11,17 +11,28 @@ class OrderController extends Controller
 {
     public function getNewOrders(Request $request)
     {
+        $request->validate([
+            'page_info' => 'nullable',
+        ]);
+
         $fields = '
-            browser_ip, order_number, email, currency, created_at, fulfillment_status,
-            subtotal_price, total_price, financial_status,
-            line_items,shipping_address, payment_gateway_names
-        ';
+            browser_ip, order_number, currency, created_at,
+            note_attributes, 
+            fulfillment_status,
+            financial_status, payment_gateway_names, 
+            line_items,
+            shipping_lines, shipping_address,
+            subtotal_price, total_price, total_shipping_price_set
+         ';
         $shop = $request->user();
+
         $response = $shop->api()->rest('GET', '/admin/api/orders.json', [
             'query' => [
-                'fulfillment_status' => 'unfulfilled',
+                //'fulfillment_status' => 'unfulfilled',
                 //'financial_status' => 'pending',
-                'fields' => $fields
+                'page_info' => $request->page_info,
+                'fields' => $fields,
+                'limit' => 50 // optional, set the number of items per page (default is usually 50)
             ]
         ]);
 
@@ -30,41 +41,49 @@ class OrderController extends Controller
         $data['orders'] = [];
         foreach ($results as $key => $order) {
             $data['orders'][$key] = [
+                //order
                 'id'    => $order['order_number']   ?? 'Unknown ID',
-                'order' => ($order['order_number']  ?? 'Unknown Order Number'),
-                'created_at' => ($order['created_at']  ?? 'Unknown Created_at'),
-                'fulfillment_status' => isset($order['line_items']) ? $order['line_items'][0]['fulfillment_status']  : 'Unknown status',
-
-                'paymentStatus'     => $order['financial_status']   ?? 'Unknown Status',
-                'currency'          => $order['currency']           ?? 'Unknown Currency',
-                'total_price'       => ($order['total_price']       ?? '0.00'),
-                'subtotal_price'    => ($order['subtotal_price']    ?? '0.00'),
-
-                'delivery_method' => $order['payment_gateway_names'] ?? 'Unknown Item',
-
+                'order' => $order['order_number']   ?? 'Unknown Order Number',
+                //date
+                'created_at' => $order['created_at']  ?? 'Unknown Created_at',
+                //customer
                 'customer' => [
-                    'first_name'    => isset($order['shipping_address']) ?  $order['shipping_address']['first_name']    : 'Unknown first_name',
-                    'last_name'     => isset($order['shipping_address']) ?  $order['shipping_address']['last_name']     : 'Unknown last_name',
-                    'name'          => isset($order['shipping_address']) ?  $order['shipping_address']['name']          : 'Unknown name',
-                    'phone'         => isset($order['shipping_address']) ?  $order['shipping_address']['phone']         : 'Unknown phone',
-                    'email'         => $order['email'] ?? 'Unknown email',
+                    'first_name'=> isset($order['shipping_address']) ?  $order['shipping_address']['first_name']    : 'Unknown first_name',
+                    'last_name' => isset($order['shipping_address']) ?  $order['shipping_address']['last_name']     : 'Unknown last_name',
+                    'name'      => isset($order['shipping_address']) ?  $order['shipping_address']['name']          : 'Unknown name',
+                    'phone'     => isset($order['shipping_address']) ?  $order['shipping_address']['phone']         : 'Unknown phone',
                 ],
+                //payment
+                'paymentStatus'  => $order['financial_status']   ?? 'Unknown Status',
+                'total_price'    => $order['total_price']        ?? '0.00',
+                'subtotal_price' => $order['subtotal_price']     ?? '0.00',
+                'shipping_price' => $order['total_shipping_price_set']['shop_money']['amount']    ?? '0.00',
+                'currency'       => $order['currency']           ?? 'Unknown Currency',
+                //fulfillment status
+                'fulfillment_status' => isset($order['line_items']) ? $order['line_items'][0]['fulfillment_status']  : 'Unknown status',
+                //delivery method
+                'delivery_method'   => $order['payment_gateway_names'] ?? 'Unknown Method',
+                'delivery_method_ar'=> $order['shipping_lines'] ?? 'Unknown Method',
+                //item
                 'item' => [
                     'product_id'    => isset($order['line_items']) ? $order['line_items'][0]['product_id']  : 'Unknown product_id',
-                    'name'          => isset($order['line_items']) ? $order['line_items'][0]['name']        : 'Unknown product name',
                     'title'         => isset($order['line_items']) ? $order['line_items'][0]['title']       : 'Unknown title',
-                    'grams'         => isset($order['line_items']) ? $order['line_items'][0]['grams']       : 'Unknown grams',
+                    'variant_title' => isset($order['line_items']) ? $order['line_items'][0]['variant_title']        : 'Unknown product name',
+                    'quantity'      => isset($order['line_items']) ? $order['line_items'][0]['quantity']       : 'Unknown grams',
                     'price'         => isset($order['line_items']) ? $order['line_items'][0]['price']       : 'Unknown price',
-                    'sku'           => isset($order['line_items']) ? $order['line_items'][0]['sku']         : 'Unknown sku',
+                    'vendor'        => isset($order['line_items']) ? $order['line_items'][0]['vendor']       : 'Unknown price',
                 ],
+                //shipping
                 'shipping_address' => [
-                    'wilaya'    => isset($order['shipping_address']['address1']) ? $order['shipping_address']['address1']   : 'Unknown address1',
-                    'wilaya2'   => isset($order['shipping_address']['city'] ) ? $order['shipping_address']['city']       : 'Unknown city',
-                    'zip'       => isset($order['shipping_address']['zip']) ? $order['shipping_address']['zip']        : 'Unknown zip',
-                    'address1'  => isset($order['shipping_address']['address1']) ? $order['shipping_address']['address1']   : 'Unknown address1',
-                    'address2'  => isset($order['shipping_address']['address2']) ? $order['shipping_address']['address2']   : 'Unknown address2',
-                    'company'   => isset($order['shipping_address']['company']) ? $order['shipping_address']['company']    : 'Unknown company',
-                ]
+                    'province'  => isset($order['shipping_address']['province']) ? $order['shipping_address']['province']: 'Unknown address1',
+                    'city'      => isset($order['shipping_address']['city'] ) ? $order['shipping_address']['city']       : 'Unknown city',
+                ],
+                //notes
+                'note_attributes' => [
+                    'phone_number'  => isset($order['note_attributes'][0]['value']) ? $order['note_attributes'][0]['value'] : 'Unknown address1',
+                    'province'      => isset($order['note_attributes'][1]['value'] ) ? $order['note_attributes'][0]['value']: 'Unknown city',
+                    'city'          => isset($order['note_attributes'][2]['value'] ) ? $order['note_attributes'][0]['value']    : 'Unknown city',
+                ],
             ];
         }
 
@@ -80,6 +99,8 @@ class OrderController extends Controller
         //}
 
         return response()->json([
+            'next_page' => $response['link']['next'],
+            'previous_page' => $response['link']['previous'],
             'orders' => $data['orders'],
             'deliveries' => $data['deliveries'],
         ]);
@@ -87,8 +108,10 @@ class OrderController extends Controller
 
     public function postDeliveries(Request $request)
     {
+
         $shop = $request->user();
         $orders = $request['orders'];
+        return response()->json($orders);
 
         foreach ($orders as $key => $order) {
             $new_order = new Order();
@@ -123,4 +146,20 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
+}
+
+
+
+function extractNextPageUrl($linkHeader) {
+    // Regular expression to find URL for 'next' relation
+    $regex = '/<([^>]+)>;\s*rel="next"/';
+
+    // Use preg_match to find the URL in the header
+    if (preg_match($regex, $linkHeader, $matches)) {
+        // Return the URL if found
+        return $matches[1];
+    }
+
+    // Return null if no 'next' URL is found
+    return null;
 }
