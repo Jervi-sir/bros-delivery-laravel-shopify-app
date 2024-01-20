@@ -15,7 +15,7 @@ const PopupDeliveryTable = ({ orders, delivery_method, onSuccessfulDelivery }) =
     const handleCancel = useCallback(() => setModalActive(!modalIsActive), [modalIsActive]);
     const handleChange = useCallback(() => setModalActive(!modalIsActive), [modalIsActive]);
     const handleScrollBottom = useCallback(() => alert('Scrolled to bottom'), []);
-    const activator = <Button onClick={handleChange} disabled={orders.length == 0} variant='primary' >Process Delivery</Button>;
+    const activator = <Button onClick={handleChange} disabled={orders.length == 0 || delivery_method } variant='primary' >Process Delivery</Button>;
 
     const postOrdersToLaravel = async () => {
         try {

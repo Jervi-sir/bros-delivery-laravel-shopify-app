@@ -16,13 +16,16 @@ import {
     Spinner,
     Card,
     LegacyCard,
-    Popover
+    Popover,
+    Link,
+    Banner
 } from '@shopify/polaris';
 import React, { useCallback, useEffect, useState } from 'react';
 import PopupDeliveryTable from './PopupDeliveryTable';
 import useAxios from '../../hooks/useAxios';
+import { InfoBannerWithUrl } from '../../components/InfoBannerWithUrl';
 
-const OrdersTable = () => {
+const OrdersTable = ({ goToSettings }) => {
     const [orderSamples, setOrderSamples] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const { axios } = useAxios();
@@ -231,6 +234,7 @@ const OrdersTable = () => {
     );
 
     const [selectedDelivery, setSelectedDelivery] = useState({ label: 'ZR Express', value: 'zr_express' });
+    
     const handleSelectChange = useCallback(
         (value: string, label: string) => setSelectedDelivery({ value: value, label: label }),
         [],
@@ -246,7 +250,12 @@ const OrdersTable = () => {
             }
             <div hidden={isLoading}>
             <FormLayout >
+                <InfoBannerWithUrl 
+                    onPress={goToSettings}
+                    placeholder="Please Enter zr-express api Token"
+                />
                 <Card>
+                
                     <ButtonGroup gap="loose">
                         {/* <Text variant="headingSm" as="h6">Deliver with : </Text> */}
                         <Select
@@ -257,6 +266,14 @@ const OrdersTable = () => {
                             value={selectedDelivery.value}
                         />
                         <PopupDeliveryTable orders={getSelectedOrders()} delivery_method={selectedDelivery} onSuccessfulDelivery={refreshParent}/>
+                        {
+                            deliveryOptions.length === 0
+                            &&
+                            <p onClick={goToSettings} style={{cursor: 'pointer', textDecoration: 'underline'}}>
+                                Please Enter zr-express api Token
+                            </p>
+                        }
+
                     </ButtonGroup>
                 </Card>
                 <LegacyCard>

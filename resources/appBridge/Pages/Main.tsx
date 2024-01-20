@@ -20,6 +20,12 @@ const Main = () => {
         [],
     );
 
+    const goToSettings = () => {
+        startTransition(() => {
+            setSelected(3); // Assuming 3 is the index of the Settings tab
+        });
+    };
+
     const tabs = [
         {
             id: 'accepts-marketing-1',
@@ -69,7 +75,7 @@ const Main = () => {
             <LegacyCard>
                 <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange} fitted >
                     <LegacyCard.Section>
-                        {content}
+                        {React.cloneElement(content, { goToSettings })}
                     </LegacyCard.Section>
                 </Tabs>
             </LegacyCard>
