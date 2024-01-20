@@ -80,4 +80,4 @@ INSERT INTO plans (`type`,`name`,`price`,`interval`,`capped_amount`,`terms`,`tri
  - [Shopify Polaris](https://polaris.shopify.com)
  - [Shopify REST API](https://shopify.dev/docs/api/admin-rest)
  - [Laracast Course for App Bridge](https://laracasts.com/series/build-shopify-apps-with-laravel)
-
+ - [koyeb deploy](https://copyprogramming.com/howto/php-deploy-laravel-with-docker-code-example#google_vignette)
