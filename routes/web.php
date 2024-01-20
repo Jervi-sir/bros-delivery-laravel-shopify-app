@@ -65,5 +65,10 @@ if (env('VITE_APP_TYPE') != 'curl') {
     require __DIR__.'/auth.php';
 }
 
+Route::get('/test', function(){
+    return response()->json([
+        'message' => 'server working'
+    ]);
+});
 
 
